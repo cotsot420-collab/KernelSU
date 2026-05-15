@@ -85,6 +85,7 @@
     <string name="profile_umount_modules_summary">启用该选项后将允许 KernelSU 为本应用还原被模块修改过的文件</string>
     <string name="profile_selinux_domain">域</string>
     <string name="profile_selinux_rules">规则</string>
+    <string name="recently_installed">最近安装</string>
     <string name="module_update">更新</string>
     <string name="module_downloading">正在下载模块：%s</string>
     <string name="module_start_downloading">开始下载：%s</string>
@@ -228,8 +229,6 @@
     <string name="settings_floating_bottom_bar_summary">使用 Apple 风格的悬浮底栏</string>
     <string name="settings_enable_glass">液态玻璃</string>
     <string name="settings_enable_glass_summary">启用悬浮底栏的液态玻璃效果</string>
-    <string name="settings_smooth_corner">平滑圆角</string>
-    <string name="settings_smooth_corner_summary">启用全局平滑圆角效果</string>
     <string name="show_only_primary_user_apps">只显示主用户应用</string>
     <string name="settings_auto_jailbreak">自动越狱</string>
     <string name="settings_auto_jailbreak_summary">开机检测到 Permissive SELinux 时自动使用 Magica 提权。需要授予本应用自启动权限。</string>
@@ -249,4 +248,8 @@
     <string name="download_cancel">取消</string>
     <string name="download_install">安装</string>
     <string name="settings_adb_root_summary">以 root 权限运行 adbd 守护进程</string>
+    <string name="settings_selinux_hide">隐藏 SELinux 修改</string>
+    <string name="settings_selinux_hide_summary">阻止应用检测 SELinux 修改</string>
+    <string name="settings_selinux_hide_reboot_required">重启生效</string>
+    <string name="settings_selinux_hide_failed">错误： %d</string>
 </resources>

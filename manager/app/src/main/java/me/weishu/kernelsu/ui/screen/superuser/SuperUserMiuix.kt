@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -94,7 +95,6 @@ import top.yukonga.miuix.kmp.icon.extended.MoreCircle
 import top.yukonga.miuix.kmp.icon.extended.Notes
 import top.yukonga.miuix.kmp.overlay.OverlayListPopup
 import top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme
-import top.yukonga.miuix.kmp.theme.miuixShape
 import top.yukonga.miuix.kmp.utils.overScrollVertical
 import top.yukonga.miuix.kmp.utils.scrollEndHaptic
 
@@ -226,7 +226,52 @@ fun SuperUserPagerMiuix(
             }
             searchStatus.SearchPager(
                 onSearchStatusChange = actions.onSearchStatusChange,
-                defaultResult = {},
+                defaultResult = {
+                    val imeBottomPadding = WindowInsets.ime.asPaddingValues().calculateBottomPadding()
+                    if (uiState.recentlyInstalledResults.isNotEmpty()) {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .overScrollVertical(),
+                        ) {
+                            item {
+                                Spacer(Modifier.height(6.dp))
+                                Text(
+                                    text = stringResource(R.string.recently_installed),
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = colorScheme.onSurfaceVariantSummary,
+                                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp)
+                                )
+                            }
+                            items(uiState.recentlyInstalledResults, key = { it.uid }, contentType = { "recent-group" }) { group ->
+                                Column {
+                                    GroupItem(
+                                        group = group,
+                                        onToggleExpand = {},
+                                    ) {
+                                        actions.onOpenProfile(group)
+                                    }
+                                    AnimatedVisibility(
+                                        visible = group.apps.size > 1,
+                                        enter = expandVertically() + fadeIn(),
+                                        exit = shrinkVertically() + fadeOut()
+                                    ) {
+                                        Column {
+                                            group.apps.forEach { app ->
+                                                SimpleAppItem(app = app)
+                                            }
+                                            Spacer(Modifier.height(6.dp))
+                                        }
+                                    }
+                                }
+                            }
+                            item {
+                                Spacer(Modifier.height(maxOf(bottomInnerPadding, imeBottomPadding)))
+                            }
+                        }
+                    }
+                },
                 searchBarTopPadding = dynamicTopPadding,
             ) {
                 val imeBottomPadding = WindowInsets.ime.asPaddingValues().calculateBottomPadding()
@@ -392,7 +437,7 @@ private fun SimpleAppItem(
                 .width(6.dp)
                 .height(24.dp)
                 .align(Alignment.CenterVertically)
-                .clip(miuixShape(16.dp))
+                .clip(RoundedCornerShape(16.dp))
                 .background(if (matched) colorScheme.primary else colorScheme.primaryContainer)
         )
         Card(
