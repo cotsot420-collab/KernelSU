@@ -8,7 +8,7 @@ The main feature of KernelSU is that it's **kernel-based**. KernelSU works in ke
 
 Additionally, KernelSU provides a [metamodule system](metamodule.md), which is a pluggable architecture for module management. Unlike traditional root solutions that bake mounting logic into their core, KernelSU delegates this to metamodules. This allows you to install metamodules like [meta-overlayfs](https://github.com/tiann/KernelSU/tree/main/userspace/meta-overlayfs) to provide systemless modifications to the `/system` partition and other partitions.
 
-## How to use KernelSU?
+## How to use KernelSU
 
 See [Installation](installation.md).
 
